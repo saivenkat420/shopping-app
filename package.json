@@ -3,32 +3,32 @@
   "private": true,
   "version": "1.0.0",
   "engines": {
-    "node": "^10.13 || 12 || 14 || 15",
+    "node": ">=16",
     "npm": ">=6"
   },
   "dependencies": {
     "@testing-library/jest-dom": "5.11.9",
-    "@testing-library/react": "11.2.5",
-    "@testing-library/user-event": "12.6.2",
-    "chalk": "4.1.0",
-    "history": "5.0.0",
-    "js-cookie": "3.0.0",
-    "msw": "0.33.0",
-    "react": "17.0.1",
-    "react-dom": "17.0.1",
-    "react-icons": "4.2.0",
+    "@testing-library/react": "12.1.2",
+    "@testing-library/user-event": "14.8.0",
+    "chalk": "4.1.2",
+    "history": "5.0.1",
+    "js-cookie": "3.0.1",
+    "msw": "0.39.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "4.4.0",
     "react-loader-spinner": "4.0.0",
-    "react-router-dom": "5.2.0"
+    "react-router-dom": "6.3.0"
   },
   "devDependencies": {
     "eslint-config-airbnb": "18.2.1",
-    "eslint-config-prettier": "8.1.0",
-    "eslint-plugin-prettier": "3.3.1",
-    "husky": "4.3.8",
-    "lint-staged": "10.5.4",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.1",
     "npm-run-all": "4.1.5",
-    "prettier": "2.2.1",
-    "react-scripts": "4.0.3"
+    "prettier": "2.8.1",
+    "react-scripts": "5.0.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,7 +43,7 @@
     "*.js": [
       "npm run lint:fix"
     ],
-    "*.{js, jsx, json, html, css}": [
+    "*.{js,jsx,json,html,css}": [
       "npm run format"
     ]
   },

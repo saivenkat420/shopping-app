@@ -1,183 +1,185 @@
-In this project, let's build a **Nxt Trendz - Cart Features** by applying the concepts we have learned till now.
+# Shopping App
 
-### Refer to the video below:
+## Introduction
 
-<br/>
-<div style="text-align: center;">
-  <video style="max-width:70%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12);outline:none;" loop="true" autoplay="autoplay" controls="controls" muted>
-    <source src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-output.mp4" type="video/mp4">
-  </video>
-</div>
-<br/>
+The **Shopping App** is a modern e-commerce web application designed to provide a seamless shopping experience. Users can browse products, add items to their cart, and complete purchases with ease. The app also supports authentication and order tracking.
 
-### Design Files
+---
 
-<details>
-<summary>Click to view</summary>
+## What the App Can Do
 
-- [Extra Small (Size < 576px) and Small (Size >= 576px)](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-sm-output-v0.png)
-- [Medium (Size >= 768px), Large (Size >= 992px) and Extra Large (Size >= 1200px)](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-lg-output.png)
+- **Home Page**:
+  - Displays a list of products with images, prices, and ratings.
+  - Allows users to search for products by name.
+  - Provides category-based filtering.
 
-</details>
+- **Product Details Page**:
+  - Shows more details about a product, including reviews and specifications.
+  - Lets users add products to their cart.
 
-### Set Up Instructions
+- **Shopping Cart**:
+  - Displays selected products.
+  - Allows users to update quantities or remove items.
 
-<details>
-<summary>Click to view</summary>
+- **User Authentication**:
+  - Secure login and registration system.
+  - Uses authentication tokens to keep users logged in.
 
-- Download dependencies by running `npm install`
-- Start up the app using `npm start`
-</details>
+- **Order Management**:
+  - Users can review order history and track shipments.
 
-### Completion Instructions
+- **Theme Switcher**:
+  - Lets you pick light or dark mode.
 
-<details>
-<summary>Functionality to be added</summary>
-<br/>
+- **Handles Errors**:
+  - Displays error messages if the API fails and allows retries.
 
-The app must have the following functionalities
+---
 
-- When an unauthenticated user tries to access the **Cart** Route, then the page should be navigated to **Login** Route
+## How the Project is Organized
 
-- Following are the features to be implemented
+```
+shopping-app/
+├── public/                # Static assets (favicon, manifest, images, etc.)
+├── src/
+│   ├── assets/            # Images, fonts, and other static resources
+│   ├── components/        # Reusable UI components
+│   │   ├── Header/        # Navigation bar
+│   │   ├── Footer/        # Footer section
+│   │   ├── ProductCard/   # Displays product preview
+│   │   ├── SearchBar/     # Search input for products
+│   │   ├── Cart/          # Shopping cart preview
+│   ├── pages/             # Main application pages
+│   │   ├── Home/          # Homepage with product listings
+│   │   ├── ProductDetails/# Detailed product page
+│   │   ├── Cart/          # Shopping cart page
+│   │   ├── Checkout/      # Checkout and payment page
+│   │   ├── Login/         # User authentication login page
+│   │   ├── Register/      # User registration page
+│   │   ├── Orders/        # Order history and tracking
+│   ├── context/           # Global state management using Context API
+│   │   ├── AuthContext.js # Manages authentication state
+│   │   ├── CartContext.js # Manages shopping cart state
+│   │   ├── ProductContext.js # Manages product list state
+│   ├── hooks/             # Custom React hooks
+│   │   ├── useAuth.js     # Hook for authentication logic
+│   │   ├── useCart.js     # Hook for cart management
+│   ├── services/          # API interaction and backend services
+│   │   ├── authService.js # Handles login, register, and authentication
+│   │   ├── productService.js # Fetches product data from API
+│   │   ├── orderService.js # Manages order placement and history
+│   ├── utils/             # Utility functions and helpers
+│   ├── styles/            # Global styles, themes, and CSS modules
+│   ├── App.js             # Main app component, routing, and providers
+│   ├── index.js           # Application entry point
+├── .env                   # Environment variables
+├── .gitignore             # Files and directories to ignore in Git
+├── package.json           # Dependencies and scripts
+├── README.md              # Project documentation
+```
 
-  - Feature 1
+---
 
-    - When an authenticated user tries to add the same product multiple times
-      - The quantity of the product should be updated accordingly, and the count of the cart items in the header should be remained same
+## How to Install
 
-  - Feature 2
+1. Copy the project:
+   ```sh
+   git clone https://github.com/your-username/shopping-app.git
+   ```
 
-    - The total amount and number of items in the cart should be displayed in the **Cart** Route
+2. Go to the project folder:
+   ```sh
+   cd shopping-app
+   ```
 
-  - Feature 3
+3. Install everything the app needs:
+   ```sh
+   npm install
+   ```
 
-    - In each cart item in the cart
-      - When the plus icon is clicked, then the quantity of the product should be incremented by one
-      - When the minus icon is clicked, then the quantity of the product should be decremented by one
-      - When the quantity of the product is one and the minus icon is clicked, then the respective product should be removed from the cart
-      - Based on the quantity of the product, the product price and the Cart Summary, i.e the total cost should be updated accordingly
+4. Run the app:
+   ```sh
+   npm start
+   ```
 
-  - Feature 4
+---
 
-    - When an authenticated user clicks on the remove button, cart item should be removed from the cart list
+## How to Use
 
-  - Feature 5
+1. **Home Page**:
+   - Browse through the available products.
+   - Use filters and search to find specific products.
+   - Click a product to view its details.
 
-    - When an authenticated user clicks on the **Remove All** button, all the cart items should be removed from the cart and [Empty Cart View](https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-empty-cart-view.png) should be displayed
+2. **Product Details Page**:
+   - View full product details and reviews.
+   - Add the product to the cart.
 
-- The `CartContext` has an object as a value with the following properties
-  - `cartList` - this key stores the cart items
-  - `removeAllCartItems` - this method is used to remove all the cart items in the `cartList`
-  - `addCartItem` - this method adds the cart item to the `cartList`
-  - `removeCartItem` - this method removes the cart item from the `cartList`
-  - `incrementCartItemQuantity` - this method increases the quantity of a product in the `cartList`
-  - `decrementCartItemQuantity` - this method decreases the quantity of a product in the `cartList`
+3. **Shopping Cart**:
+   - Review selected products.
+   - Adjust quantities or remove items.
+   - Proceed to checkout.
 
-</details>
+4. **Authentication**:
+   - Register and log in to save preferences and track orders.
 
-<details>
-<summary>Components Structure</summary>
+5. **Order Tracking**:
+   - View order history and track shipments.
 
-<br/>
-<div style="text-align: center;">
-    <img src="https://assets.ccbp.in/frontend/content/react-js/nxt-trendz-cart-features-component-structure-breakdown.png" alt="component structure breakdown" style="max-width:100%;box-shadow:0 2.8px 2.2px rgba(0, 0, 0, 0.12)">
-</div>
-<br/>
+6. **Theme Switcher**:
+   - Click the button to switch between light and dark mode.
 
-</details>
+---
 
-<details>
-<summary>Implementation Files</summary>
-<br/>
+## Important Files and Folders
 
-Use these files to complete the implementation:
+### `App.js`
+- The main file that sets up the pages and routes.
+- Manages authentication and global state.
 
-- `src/App.js`
-- `src/components/Cart/index.js`
-- `src/components/Cart/index.css`
-- `src/components/CartItem/index.js`
-- `src/components/CartItem/index.css`
-- `src/components/CartSummary/index.js`
-- `src/components/CartSummary/index.css`
-</details>
+### `ProductsContext.js`
+- Manages product listings and shopping cart data.
 
-### Quick Tips
+### `Header`
+- Contains the navigation bar, search bar, and cart icon.
 
-<details>
-<summary>Click to view</summary>
-<br>
+### `HomePage`
+- Displays the list of products with filters and search.
 
-- The `line-height` CSS property sets the height of a line box. It's commonly used to set the distance between lines of text
+### `ProductDetails`
+- Shows full product information and an add-to-cart option.
 
-  ```
-  line-height: 1.5;
-  ```
+### `Cart`
+- Displays selected products and checkout options.
 
-    <br/>
-    <img src="https://assets.ccbp.in/frontend/react-js/line-height-img.png" alt="line height" style="width:90%; max-width: 600px;"/>
+---
 
-- The array method `find()` returns the first item's value that satisfies the provided testing function. If no item is found, it returns `undefined`
+## API Information
 
-  **Syntax**: `arr.find(Testing Function)`
+The app fetches product data from:
+```
+https://api.example.com/products
+```
+- **Method**: GET
+- **What You Get**: A list of products with details like `id`, `name`, `price`, `category`, `image`, and `description`.
 
-</details>
+---
 
-### Important Note
+## Tools Used
 
-<details>
-<summary>Click to view</summary>
+- **React**: For building the app.
+- **react-router-dom**: For handling navigation.
+- **react-icons**: For adding icons.
+- **styled-components**: For styling components.
+- **Redux**: For state management.
+- **Axios**: For API calls.
 
-<br/>
+---
 
-**The following instructions are required for the tests to pass**
+## Plans for the Future
 
-- `BsPlusSquare`, `BsDashSquare` icons from `react-icons` should be used for **plus** and **minus** buttons in cart item
-- The Cart Item should consist of two HTML button elements with data-testid attribute values as **plus** and **minus** respectively
-- `AiFillCloseCircle` icon from react-icons should be used for **remove** button in cartItem
-- The Cart Item should consist of an HTML button element with data-testid attribute values as **remove**
-- The product image in **Cart Item** Route should have the alt as `title` of the product
+- Add user reviews and ratings for products.
+- Improve UI for mobile devices.
+- Implement a wishlist feature.
 
-- Prime User credentials
-
-  ```text
-   username: rahul
-   password: rahul@2021
-  ```
-
-- Non-Prime User credentials
-
-  ```text
-   username: raja
-   password: raja@2021
-  ```
-
-</details>
-
-### Resources
-
-<details>
-<summary>Colors</summary>
-
-<br/>
-
-<div style="background-color: #0b69ff; width: 150px; padding: 10px; color: white">Hex: #0b69ff</div>
-<div style="background-color: #171f46; width: 150px; padding: 10px; color: white">Hex: #171f46</div>
-<div style="background-color: #616e7c; width: 150px; padding: 10px; color: white">Hex: #616e7c</div>
-<div style="background-color: #ffffff; width: 150px; padding: 10px; color: black">Hex: #ffffff</div>
-
-</details>
-
-<details>
-<summary>Font-families</summary>
-
-- Roboto
-
-</details>
-
-> ### _Things to Keep in Mind_
->
-> - All components you implement should go in the `src/components` directory.
-> - Don't change the component folder names as those are the files being imported into the tests.
-> - **Do not remove the pre-filled code**
-> - Want to quickly review some of the concepts you’ve been learning? Take a look at the Cheat Sheets.
+---

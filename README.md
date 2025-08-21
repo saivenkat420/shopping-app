@@ -25,11 +25,6 @@ The **Shopping App** is a modern e-commerce web application designed to provide 
   - Secure login and registration system.
   - Uses authentication tokens to keep users logged in.
 
-- **Order Management**:
-  - Users can review order history and track shipments.
-
-- **Theme Switcher**:
-  - Lets you pick light or dark mode.
 
 - **Handles Errors**:
   - Displays error messages if the API fails and allows retries.
@@ -49,25 +44,8 @@ shopping-app/
 │   │   ├── ProductCard/   # Displays product preview
 │   │   ├── SearchBar/     # Search input for products
 │   │   ├── Cart/          # Shopping cart preview
-│   ├── pages/             # Main application pages
-│   │   ├── Home/          # Homepage with product listings
-│   │   ├── ProductDetails/# Detailed product page
-│   │   ├── Cart/          # Shopping cart page
-│   │   ├── Checkout/      # Checkout and payment page
-│   │   ├── Login/         # User authentication login page
-│   │   ├── Register/      # User registration page
-│   │   ├── Orders/        # Order history and tracking
 │   ├── context/           # Global state management using Context API
-│   │   ├── AuthContext.js # Manages authentication state
 │   │   ├── CartContext.js # Manages shopping cart state
-│   │   ├── ProductContext.js # Manages product list state
-│   ├── hooks/             # Custom React hooks
-│   │   ├── useAuth.js     # Hook for authentication logic
-│   │   ├── useCart.js     # Hook for cart management
-│   ├── services/          # API interaction and backend services
-│   │   ├── authService.js # Handles login, register, and authentication
-│   │   ├── productService.js # Fetches product data from API
-│   │   ├── orderService.js # Manages order placement and history
 │   ├── utils/             # Utility functions and helpers
 │   ├── styles/            # Global styles, themes, and CSS modules
 │   ├── App.js             # Main app component, routing, and providers
@@ -137,7 +115,7 @@ shopping-app/
 - The main file that sets up the pages and routes.
 - Manages authentication and global state.
 
-### `ProductsContext.js`
+### `CartContext.js`
 - Manages product listings and shopping cart data.
 
 ### `Header`

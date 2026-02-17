@@ -4,12 +4,25 @@ import {
   getCachedProductDetails,
   setCachedProductDetails,
 } from '../../utils/productsCache'
+import WishlistButton from '../WishlistButton'
+import ProductBadge from '../ProductBadge'
 
 import './index.css'
 
 const ProductCard = props => {
   const {productData} = props
   const {title, brand, imageUrl, rating, price, id} = productData
+
+  // Determine badge type based on product data
+  const getBadge = () => {
+    // Mock logic - in real app, this would come from API
+    if (id % 10 === 0) return {type: 'new', label: 'New'}
+    if (id % 7 === 0) return {type: 'sale', label: 'Sale'}
+    if (id % 5 === 0) return {type: 'bestseller', label: 'Best Seller'}
+    return null
+  }
+
+  const badge = getBadge()
 
   const prefetchDetails = () => {
     if (getCachedProductDetails(id)) return
@@ -44,7 +57,11 @@ const ProductCard = props => {
         onMouseEnter={prefetchDetails}
         onFocus={prefetchDetails}
       >
-        <img src={imageUrl} alt="product" className="thumbnail" />
+        <div className="product-image-wrapper">
+          <img src={imageUrl} alt="product" className="thumbnail" />
+          {badge && <ProductBadge type={badge.type} label={badge.label} />}
+          <WishlistButton product={productData} />
+        </div>
         <h1 className="title">{title}</h1>
         <p className="brand">by {brand}</p>
         <div className="product-details">

@@ -29,6 +29,8 @@
   border: none;
   outline: none;
   flex-grow: 1;
+  width: 100%;
+  display: flex;
 }
 
 .search-input::placeholder {
@@ -37,9 +39,14 @@
 
 .search-icon {
   color: var(--color-text-muted);
-  width: 20px;
+  width: 40px;
   height: 20px;
   flex-shrink: 0;
+  text-align: right;
+  vertical-align: bottom;
+  padding-right: 10px;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .category-heading,

@@ -159,14 +159,22 @@ class AllProductsSection extends Component {
     ) : (
       <div className="no-products-view">
         <div className="no-products-card">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
-            className="no-products-img"
-            alt="No products found"
-          />
+          <div className="no-products-icon-wrapper">
+            <svg
+              width="80"
+              height="80"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
           <h2 className="no-products-heading">No Products Found</h2>
           <p className="no-products-description">
-            We could not find any products. Try adjusting your filters.
+            We couldn&apos;t find any products matching your search. Try
+            adjusting your filters or search terms to discover more items.
           </p>
         </div>
       </div>

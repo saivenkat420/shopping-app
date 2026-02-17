@@ -7,7 +7,7 @@
       "destination": "/api/product-details?id=:id"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/((?!api/|static/|img/|manifest\\.json|favicon\\.ico).*)",
       "destination": "/index.html"
     }
   ]

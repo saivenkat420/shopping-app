@@ -22,11 +22,22 @@
   border-color: transparent;
 }
 
+.product-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
 .thumbnail {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
   background: var(--color-background-alt);
+  transition: transform 0.3s ease;
+}
+
+.link-item:hover .thumbnail {
+  transform: scale(1.05);
 }
 
 .title {

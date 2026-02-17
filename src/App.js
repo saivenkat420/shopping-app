@@ -9,7 +9,12 @@ import ProductItemDetails from './components/ProductItemDetails'
 import Cart from './components/Cart'
 import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
+import BackToTop from './components/BackToTop'
+import ErrorBoundary from './components/ErrorBoundary'
 import CartContext from './context/CartContext'
+import {ToastProvider} from './context/ToastContext'
+import {WishlistProvider} from './context/WishlistContext'
+import {ThemeProvider} from './context/ThemeContext'
 
 class App extends Component {
   state = {
@@ -74,31 +79,40 @@ class App extends Component {
     const {cartList} = this.state
 
     return (
-      <CartContext.Provider
-        value={{
-          cartList,
-          addCartItem: this.addCartItem,
-          removeCartItem: this.removeCartItem,
-          incrementCartItemQuantity: this.incrementCartItemQuantity,
-          decrementCartItemQuantity: this.decrementCartItemQuantity,
-          removeAllCartItems: this.removeAllCartItems,
-        }}
-      >
-        <Switch>
-          <Route exact path="/login" component={LoginForm} />
-          <Route exact path="/signup" component={SignUpForm} />
-          <ProtectedRoute exact path="/" component={Home} />
-          <ProtectedRoute exact path="/products" component={Products} />
-          <ProtectedRoute
-            exact
-            path="/products/:id"
-            component={ProductItemDetails}
-          />
-          <ProtectedRoute exact path="/cart" component={Cart} />
-          <Route path="/not-found" component={NotFound} />
-          <Redirect to="not-found" />
-        </Switch>
-      </CartContext.Provider>
+      <ErrorBoundary>
+        <ThemeProvider>
+          <ToastProvider>
+            <WishlistProvider>
+              <CartContext.Provider
+                value={{
+                  cartList,
+                  addCartItem: this.addCartItem,
+                  removeCartItem: this.removeCartItem,
+                  incrementCartItemQuantity: this.incrementCartItemQuantity,
+                  decrementCartItemQuantity: this.decrementCartItemQuantity,
+                  removeAllCartItems: this.removeAllCartItems,
+                }}
+              >
+                <Switch>
+                  <Route exact path="/login" component={LoginForm} />
+                  <Route exact path="/signup" component={SignUpForm} />
+                  <ProtectedRoute exact path="/" component={Home} />
+                  <ProtectedRoute exact path="/products" component={Products} />
+                  <ProtectedRoute
+                    exact
+                    path="/products/:id"
+                    component={ProductItemDetails}
+                  />
+                  <ProtectedRoute exact path="/cart" component={Cart} />
+                  <Route path="/not-found" component={NotFound} />
+                  <Redirect to="not-found" />
+                </Switch>
+                <BackToTop />
+              </CartContext.Provider>
+            </WishlistProvider>
+          </ToastProvider>
+        </ThemeProvider>
+      </ErrorBoundary>
     )
   }
 }

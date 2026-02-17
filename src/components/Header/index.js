@@ -2,6 +2,7 @@ import {Link, withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 
 import CartContext from '../../context/CartContext'
+import ThemeToggle from '../ThemeToggle'
 
 import './index.css'
 
@@ -82,13 +83,16 @@ const Header = props => {
               </Link>
             </li>
           </ul>
-          <button
-            type="button"
-            className="logout-desktop-btn"
-            onClick={onClickLogout}
-          >
-            Logout
-          </button>
+          <div className="nav-actions">
+            <ThemeToggle />
+            <button
+              type="button"
+              className="logout-desktop-btn"
+              onClick={onClickLogout}
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
       <div className="nav-menu-mobile">

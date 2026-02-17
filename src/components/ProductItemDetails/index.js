@@ -3,6 +3,7 @@ import {Link, withRouter} from 'react-router-dom'
 import {BsPlusSquare, BsDashSquare, BsArrowLeft} from 'react-icons/bs'
 
 import CartContext from '../../context/CartContext'
+import ToastContext from '../../context/ToastContext'
 import {
   getCachedProductDetails,
   setCachedProductDetails,
@@ -11,6 +12,9 @@ import {
 import Header from '../Header'
 import ProductDetailsSkeleton from '../ProductDetailsSkeleton'
 import SimilarProductItem from '../SimilarProductItem'
+import StickyAddToCart from '../StickyAddToCart'
+import WishlistButton from '../WishlistButton'
+import ProductBadge from '../ProductBadge'
 
 import './index.css'
 
@@ -113,7 +117,8 @@ class ProductItemDetails extends Component {
         />
         <h2 className="product-not-found-heading">Product Not Found</h2>
         <p className="product-not-found-desc">
-          The product you're looking for doesn't exist or has been removed.
+          The product you&apos;re looking for doesn&apos;t exist or has been
+          removed.
         </p>
         <Link to="/products">
           <button type="button" className="product-details-cta">
@@ -155,127 +160,173 @@ class ProductItemDetails extends Component {
           totalReviews,
         } = productData
         const {addCartItem} = value
-        const onClickAddToCart = () => {
-          addCartItem({...productData, quantity})
-        }
-
         return (
-          <div className="product-details-page">
-            <button
-              type="button"
-              className="back-button"
-              onClick={this.handleBack}
-              aria-label="Go back"
-            >
-              <BsArrowLeft className="back-button-icon" />
-              Back
-            </button>
-            <nav className="product-breadcrumb">
-              <Link to="/" className="breadcrumb-link">
-                Home
-              </Link>
-              <span className="breadcrumb-sep">/</span>
-              <Link to="/products" className="breadcrumb-link">
-                Products
-              </Link>
-              <span className="breadcrumb-sep">/</span>
-              <span className="breadcrumb-current">{title}</span>
-            </nav>
+          <ToastContext.Consumer>
+            {toastValue => {
+              const {showToast} = toastValue
+              const onClickAddToCart = () => {
+                addCartItem({...productData, quantity})
+                showToast(
+                  `${title} added to cart (${quantity})`,
+                  'success',
+                  3000,
+                )
+              }
 
-            <div className="product-details-layout">
-              <div className="product-image-wrapper">
-                <img
-                  src={imageUrl}
-                  alt={title}
-                  className="product-details-image"
-                />
-                {availability === 'In Stock' && (
-                  <span className="product-badge product-badge-success">
-                    In Stock
-                  </span>
-                )}
-              </div>
+              const getBadge = () => {
+                if (availability === 'In Stock' && price < 1000)
+                  return {type: 'sale', label: 'Sale'}
+                if (rating >= 4.5)
+                  return {type: 'bestseller', label: 'Best Seller'}
+                return null
+              }
 
-              <div className="product-info-card">
-                <h1 className="product-details-title">{title}</h1>
-                <p className="product-details-brand">by {brand}</p>
-                <div className="product-details-price">Rs {price}/-</div>
-                <div className="product-details-rating-row">
-                  <div className="product-rating-badge">
-                    <span className="product-rating-value">{rating}</span>
-                    <img
-                      src="https://assets.ccbp.in/frontend/react-js/star-img.png"
-                      alt="star"
-                      className="product-rating-star"
-                    />
-                  </div>
-                  <span className="product-reviews">
-                    {totalReviews} Reviews
-                  </span>
-                </div>
-                <p className="product-details-desc">{description}</p>
-                <div className="product-meta">
-                  <div className="product-meta-row">
-                    <span className="product-meta-label">Availability</span>
-                    <span className="product-meta-value">{availability}</span>
-                  </div>
-                  <div className="product-meta-row">
-                    <span className="product-meta-label">Brand</span>
-                    <span className="product-meta-value">{brand}</span>
-                  </div>
-                </div>
-                <div className="product-quantity-section">
-                  <span className="quantity-label">Quantity</span>
-                  <div className="quantity-controls">
+              const badge = getBadge()
+
+              return (
+                <>
+                  <div className="product-details-page">
                     <button
                       type="button"
-                      className="quantity-btn"
-                      onClick={this.onDecrementQuantity}
-                      data-testid="minus"
-                      aria-label="Decrease quantity"
+                      className="back-button"
+                      onClick={this.handleBack}
+                      aria-label="Go back"
                     >
-                      <BsDashSquare className="quantity-icon" />
+                      <BsArrowLeft className="back-button-icon" />
+                      Back
                     </button>
-                    <span className="quantity-value" data-testid="quantity">
-                      {quantity}
-                    </span>
-                    <button
-                      type="button"
-                      className="quantity-btn"
-                      onClick={this.onIncrementQuantity}
-                      data-testid="plus"
-                      aria-label="Increase quantity"
-                    >
-                      <BsPlusSquare className="quantity-icon" />
-                    </button>
-                  </div>
-                </div>
-                <button
-                  type="button"
-                  className="product-add-to-cart"
-                  onClick={onClickAddToCart}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            </div>
+                    <nav className="product-breadcrumb">
+                      <Link to="/" className="breadcrumb-link">
+                        Home
+                      </Link>
+                      <span className="breadcrumb-sep">/</span>
+                      <Link to="/products" className="breadcrumb-link">
+                        Products
+                      </Link>
+                      <span className="breadcrumb-sep">/</span>
+                      <span className="breadcrumb-current">{title}</span>
+                    </nav>
 
-            {similarProductsData.length > 0 && (
-              <section className="similar-products-section">
-                <h2 className="similar-products-title">You May Also Like</h2>
-                <div className="similar-products-scroll">
-                  <ul className="similar-products-list">
-                    {similarProductsData.map(eachSimilarProduct => (
-                      <SimilarProductItem
-                        productDetails={eachSimilarProduct}
-                        key={eachSimilarProduct.id}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              </section>
-            )}
-          </div>
+                    <div className="product-details-layout">
+                      <div className="product-image-wrapper">
+                        <img
+                          src={imageUrl}
+                          alt={title}
+                          className="product-details-image"
+                        />
+                        {badge && (
+                          <ProductBadge type={badge.type} label={badge.label} />
+                        )}
+                        {availability === 'In Stock' && (
+                          <span className="product-badge product-badge-success">
+                            In Stock
+                          </span>
+                        )}
+                        <WishlistButton product={productData} size={24} />
+                      </div>
+
+                      <div className="product-info-card">
+                        <h1 className="product-details-title">{title}</h1>
+                        <p className="product-details-brand">by {brand}</p>
+                        <div className="product-details-price">
+                          Rs {price}/-
+                        </div>
+                        <div className="product-details-rating-row">
+                          <div className="product-rating-badge">
+                            <span className="product-rating-value">
+                              {rating}
+                            </span>
+                            <img
+                              src="https://assets.ccbp.in/frontend/react-js/star-img.png"
+                              alt="star"
+                              className="product-rating-star"
+                            />
+                          </div>
+                          <span className="product-reviews">
+                            {totalReviews} Reviews
+                          </span>
+                        </div>
+                        <p className="product-details-desc">{description}</p>
+                        <div className="product-meta">
+                          <div className="product-meta-row">
+                            <span className="product-meta-label">
+                              Availability
+                            </span>
+                            <span className="product-meta-value">
+                              {availability}
+                            </span>
+                          </div>
+                          <div className="product-meta-row">
+                            <span className="product-meta-label">Brand</span>
+                            <span className="product-meta-value">{brand}</span>
+                          </div>
+                        </div>
+                        <div className="product-quantity-section">
+                          <span className="quantity-label">Quantity</span>
+                          <div className="quantity-controls">
+                            <button
+                              type="button"
+                              className="quantity-btn"
+                              onClick={this.onDecrementQuantity}
+                              data-testid="minus"
+                              aria-label="Decrease quantity"
+                            >
+                              <BsDashSquare className="quantity-icon" />
+                            </button>
+                            <span
+                              className="quantity-value"
+                              data-testid="quantity"
+                            >
+                              {quantity}
+                            </span>
+                            <button
+                              type="button"
+                              className="quantity-btn"
+                              onClick={this.onIncrementQuantity}
+                              data-testid="plus"
+                              aria-label="Increase quantity"
+                            >
+                              <BsPlusSquare className="quantity-icon" />
+                            </button>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="product-add-to-cart"
+                          onClick={onClickAddToCart}
+                        >
+                          Add to Cart
+                        </button>
+                      </div>
+                    </div>
+
+                    {similarProductsData.length > 0 && (
+                      <section className="similar-products-section">
+                        <h2 className="similar-products-title">
+                          You May Also Like
+                        </h2>
+                        <div className="similar-products-scroll">
+                          <ul className="similar-products-list">
+                            {similarProductsData.map(eachSimilarProduct => (
+                              <SimilarProductItem
+                                productDetails={eachSimilarProduct}
+                                key={eachSimilarProduct.id}
+                              />
+                            ))}
+                          </ul>
+                        </div>
+                      </section>
+                    )}
+                  </div>
+                  <StickyAddToCart
+                    productData={productData}
+                    quantity={quantity}
+                    onAddToCart={onClickAddToCart}
+                  />
+                </>
+              )
+            }}
+          </ToastContext.Consumer>
         )
       }}
     </CartContext.Consumer>

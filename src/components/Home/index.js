@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
 import Header from '../Header'
+import TrustBadges from '../TrustBadges'
 
 import './index.css'
 
@@ -32,6 +33,9 @@ const Home = () => (
         alt="clothes that get you noticed"
         className="home-desktop-img"
       />
+    </div>
+    <div className="home-trust-section">
+      <TrustBadges />
     </div>
   </>
 )

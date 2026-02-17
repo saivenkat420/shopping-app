@@ -122,3 +122,15 @@
     padding: 0.875rem 2.25rem;
   }
 }
+
+.home-trust-section {
+  width: 90%;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+}
+
+@media screen and (min-width: 768px) {
+  .home-trust-section {
+    margin-top: 4rem;
+  }
+}

@@ -1,14 +1,18 @@
 .nav-header {
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid rgb(243, 243, 243);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding-top: env(safe-area-inset-top, 0);
 }
 
 @media screen and (max-width: 767px) {
   .nav-header {
     flex-direction: column;
     align-items: center;
-    border-bottom-style: none;
   }
 }
 
@@ -17,10 +21,10 @@
   align-items: center;
   justify-content: space-between;
   width: 90%;
-  max-width: 1110px;
-  padding-top: 25px;
-  padding-bottom: 25px;
+  max-width: 1200px;
+  padding: 1rem 0;
 }
+
 @media screen and (max-width: 767px) {
   .nav-content {
     flex-direction: column;
@@ -30,6 +34,7 @@
 .nav-bar-mobile-logo-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
@@ -44,7 +49,7 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  max-width: 1110px;
+  gap: 2rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -55,23 +60,28 @@
 
 .website-logo {
   width: 110px;
+  transition: transform var(--transition);
+}
+
+.website-logo:hover {
+  transform: scale(1.02);
 }
 
 @media screen and (min-width: 768px) {
   .website-logo {
-    width: 165px;
+    width: 140px;
   }
 }
 
 .nav-menu {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  align-self: flex-end;
+  align-items: center;
   flex: 1;
   list-style-type: none;
-  margin-top: 0px;
-  margin-bottom: 0px;
+  margin: 0;
+  padding: 0;
+  gap: 0.5rem;
 }
 
 @media screen and (max-width: 767px) {
@@ -79,6 +89,7 @@
     display: none;
   }
 }
+
 .nav-menu-mobile {
   width: 100%;
 }
@@ -94,46 +105,57 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 70px;
-  background-color: #e6f6ff;
-  flex: 1;
+  height: 64px;
+  background: var(--color-background-alt);
   list-style-type: none;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--color-border-light);
 }
 
 .nav-menu-item {
-  font-family: 'Roboto';
-  margin: 10px;
-  font-weight: 400;
-  font-size: 16px;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.9375rem;
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: #475569;
+  color: var(--color-text-muted);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  transition: all var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--color-primary);
+  background: var(--color-primary-muted);
 }
 
 .nav-menu-item-mobile {
-  margin: 0px;
+  margin: 0;
   cursor: pointer;
 }
 
 .logout-desktop-btn {
-  font-family: 'Roboto';
+  font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 10px;
-  padding: 8px 16px;
-  color: #ffffff;
-  background-color: #0967d2;
+  font-size: 0.875rem;
+  padding: 0.5rem 1.25rem;
+  color: white;
+  background: var(--color-primary);
   border: none;
-  border-radius: 4px;
-  margin-left: 14px;
+  border-radius: var(--radius-md);
   cursor: pointer;
   outline: none;
+  transition: all var(--transition);
+}
+
+.logout-desktop-btn:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
 }
 
 @media screen and (max-width: 767px) {
@@ -144,10 +166,16 @@
 
 .nav-mobile-btn {
   border: none;
-  padding: 0px;
+  padding: 0.5rem;
   background: transparent;
   cursor: pointer;
   outline: none;
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+
+.nav-mobile-btn:hover {
+  background: var(--color-background-alt);
 }
 
 @media screen and (min-width: 768px) {
@@ -157,25 +185,19 @@
 }
 
 .nav-bar-img {
-  width: 24px;
+  width: 22px;
+  height: 22px;
 }
 
 .cart-count-badge {
-  background-color: #bfdbfe;
-  color: #0967d2;
-  font-family: 'Roboto';
-  font-size: 12px;
-  font-weight: 500;
-  border-radius: 50%;
-  padding-left: 5px;
-  padding-top: 2px;
-  padding-right: 5px;
-  padding-bottom: 2px;
-  margin-left: 8px;
-}
-
-@media screen and (min-width: 768px) {
-  .cart-count-badge {
-    background-color: #e6f6ff;
-  }
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  border-radius: 9999px;
+  padding: 0.125rem 0.375rem;
+  margin-left: 0.375rem;
+  min-width: 1.25rem;
+  text-align: center;
 }

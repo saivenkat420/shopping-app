@@ -1,0 +1,294 @@
+.product-details-skeleton {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.skeleton-back-btn {
+  height: 40px;
+  width: 80px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+.skeleton-breadcrumb {
+  height: 14px;
+  width: 180px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+}
+
+.product-details-skeleton-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .product-details-skeleton-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.skeleton-image {
+  aspect-ratio: 1;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-info-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  border: 1px solid var(--color-border-light);
+}
+
+@media screen and (min-width: 768px) {
+  .skeleton-info-card {
+    padding: 2rem;
+  }
+}
+
+.skeleton-title {
+  height: 1.75rem;
+  width: 85%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-brand {
+  height: 1rem;
+  width: 40%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+.skeleton-price {
+  height: 1.5rem;
+  width: 6rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+.skeleton-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.skeleton-rating {
+  height: 1.75rem;
+  width: 3.5rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-reviews {
+  height: 1rem;
+  width: 5rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-desc {
+  height: 1rem;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-desc.short {
+  width: 70%;
+}
+
+.skeleton-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1.25rem 0;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.skeleton-meta-row {
+  height: 1rem;
+  width: 60%;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-quantity {
+  margin-bottom: 1.25rem;
+}
+
+.skeleton-quantity-label {
+  height: 0.875rem;
+  width: 4rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 0.5rem;
+}
+
+.skeleton-quantity-controls {
+  height: 44px;
+  width: 120px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-add-btn {
+  height: 48px;
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.skeleton-similar-section {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.skeleton-similar-title {
+  height: 1.25rem;
+  width: 10rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  margin-bottom: 0.75rem;
+}
+
+.skeleton-similar-cards {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: hidden;
+}
+
+.skeleton-similar-card {
+  flex-shrink: 0;
+  width: 180px;
+  aspect-ratio: 1;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

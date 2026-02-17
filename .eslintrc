@@ -1,26 +1,9 @@
 {
-  "env": {
-    "browser": true,
-    "es2021": true
-  },
-  "parser": "babel-eslint",
+  "env": {"browser": true, "es2021": true},
   "extends": ["react-app", "airbnb", "prettier"],
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 12,
-    "sourceType": "module"
-  },
+  "parserOptions": {"ecmaFeatures": {"jsx": true}, "ecmaVersion": 12, "sourceType": "module"},
   "plugins": ["prettier"],
-  "overrides": [
-    {
-      "files": ["styledComponents.js"],
-      "rules": {
-        "import/prefer-default-export": "off"
-      }
-    }
-  ],
+  "overrides": [{"files": ["styledComponents.js"], "rules": {"import/prefer-default-export": "off"}}],
   "rules": {
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [1, {"extensions": [".js", ".jsx"]}],
@@ -29,25 +12,10 @@
     "react/jsx-uses-react": "off",
     "no-console": "off",
     "react/prop-types": "off",
-    "jsx-a11y/label-has-associated-control": [
-      2,
-      {
-        "labelAttributes": ["htmlFor"]
-      }
-    ],
+    "jsx-a11y/label-has-associated-control": [2, {"labelAttributes": ["htmlFor"]}],
     "jsx-a11y/click-events-have-key-events": 0,
-    "jsx-a11y/no-noninteractive-element-interactions": [
-      "off",
-      {
-        "handlers": ["onClick"]
-      }
-    ],
-    "react/prefer-stateless-function": [
-      0,
-      {
-        "ignorePureComponents": true
-      }
-    ],
+    "jsx-a11y/no-noninteractive-element-interactions": ["off", {"handlers": ["onClick"]}],
+    "react/prefer-stateless-function": [0, {"ignorePureComponents": true}],
     "no-unused-vars": "warn",
     "jsx-a11y/alt-text": 1,
     "react/no-unused-state": "warn",
@@ -55,6 +23,9 @@
     "react/no-unescaped-entities": "warn",
     "react/jsx-props-no-spreading": "off",
     "operator-assignment": ["warn", "always"],
-    "radix": "off"
+    "radix": "off",
+    "class-methods-use-this": "off",
+    "lines-between-class-members": "off",
+    "react/no-deprecated": "warn"
   }
 }

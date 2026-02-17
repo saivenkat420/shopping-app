@@ -1,134 +1,175 @@
 .cart-item {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
-  padding: 16px;
-  margin-bottom: 16px;
-  box-shadow: 0px 4px 16px 0px #eaebed;
+  background: var(--color-surface);
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
 }
 
 @media screen and (min-width: 768px) {
   .cart-item {
-    margin-bottom: 32px;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  .cart-item {
-    padding-left: 36px;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    padding-right: 48px;
+    margin-bottom: 1rem;
+    padding: 1.25rem 1.5rem;
   }
 }
 
 .cart-product-image {
-  width: 96px;
-  height: 96px;
-  border-radius: 4px;
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-product-image {
+    width: 96px;
+    height: 96px;
+  }
 }
 
 .cart-item-details-container {
-  margin-left: 16px;
+  margin-left: 1rem;
+  flex: 1;
+  min-width: 0;
 }
 
 @media screen and (min-width: 768px) {
   .cart-item-details-container {
     display: flex;
     justify-content: space-between;
-    flex-grow: 1;
+    align-items: center;
+    margin-left: 1.25rem;
+    gap: 1rem;
   }
+}
+
+.cart-product-title-brand-container {
+  flex: 1;
+  min-width: 0;
 }
 
 @media screen and (min-width: 768px) {
   .cart-product-title-brand-container {
-    width: 250px;
+    max-width: 280px;
   }
 }
 
 .cart-product-title {
-  color: #171f46;
-  font-family: 'Roboto';
-  font-size: 12px;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 @media screen and (min-width: 768px) {
   .cart-product-title {
-    font-size: 16px;
+    font-size: 1rem;
   }
 }
 
 .cart-product-brand {
-  color: #64748b;
-  font-family: 'Roboto';
-  font-size: 10px;
-}
-
-@media screen and (min-width: 768px) {
-  .cart-product-brand {
-    font-size: 12px;
-  }
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  margin: 0;
 }
 
 .cart-quantity-container {
   display: flex;
   align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .cart-quantity-container {
+    margin-top: 0;
+  }
 }
 
 .quantity-controller-button {
-  padding: 0;
+  padding: 0.25rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.quantity-controller-button:hover {
+  background: var(--color-background-alt);
 }
 
 .cart-quantity {
-  color: #52606d;
-  font-family: 'Roboto';
-  font-size: 12px;
-  font-weight: 500;
-  margin: 8px;
-  line-height: 1.3;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  margin: 0 0.5rem;
+  min-width: 1.5rem;
+  text-align: center;
 }
 
 @media screen and (min-width: 768px) {
   .cart-quantity {
-    font-size: 18px;
-    margin-left: 16px;
-    margin-right: 16px;
+    font-size: 1rem;
+    margin: 0 0.75rem;
   }
 }
 
 .total-price-remove-container {
   display: flex;
   align-items: center;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .total-price-remove-container {
+    margin-top: 0;
+    min-width: 140px;
+    justify-content: flex-end;
+  }
 }
 
 .cart-total-price {
-  color: #0b69ff;
-  font-family: 'Roboto';
-  font-size: 16px;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 0;
-  min-width: 100px;
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  margin: 0;
 }
 
 @media screen and (min-width: 768px) {
   .cart-total-price {
-    font-size: 18px;
+    font-size: 1rem;
   }
 }
 
 .remove-button {
-  background-color: transparent;
-  color: #334155;
-  font-family: 'Roboto';
-  font-size: 10px;
-  line-height: 16px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 500;
   border: none;
   outline: none;
   cursor: pointer;
+  transition: color var(--transition);
+}
+
+.remove-button:hover {
+  color: var(--color-error);
 }
 
 @media screen and (min-width: 768px) {
@@ -138,11 +179,18 @@
 }
 
 .delete-button {
-  background-color: transparent;
+  background: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  margin-left: 32px;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition);
+}
+
+.delete-button:hover {
+  background: var(--color-background-alt);
 }
 
 @media screen and (max-width: 767px) {

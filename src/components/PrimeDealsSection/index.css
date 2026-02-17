@@ -1,24 +1,126 @@
-.primedeals-list-heading {
-  color: #475569;
-  font-family: 'Roboto';
-  font-size: 32px;
-  font-weight: 500;
-  margin-top: 48px;
+.primedeals-section {
+  margin-bottom: 1.5rem;
 }
 
-.products-list {
+@media screen and (min-width: 768px) {
+  .primedeals-section {
+    margin-bottom: 2.5rem;
+  }
+}
+
+.primedeals-header {
   display: flex;
-  flex-wrap: wrap;
-  padding-left: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.primedeals-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: var(--color-primary-muted);
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-sm);
+}
+
+.primedeals-heading {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+@media screen and (min-width: 768px) {
+  .primedeals-heading {
+    font-size: 1.5rem;
+  }
+}
+
+.primedeals-desc {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.primedeals-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.primedeals-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.primedeals-scroll::-webkit-scrollbar-track {
+  background: var(--color-background-alt);
+  border-radius: 3px;
+}
+
+.primedeals-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.primedeals-list {
+  display: flex;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  min-width: min-content;
+}
+
+.primedeals-list .product-item {
+  flex: 0 0 240px;
+  width: 240px;
+  margin: 0;
+}
+
+@media screen and (min-width: 480px) {
+  .primedeals-list .product-item {
+    flex: 0 0 260px;
+    width: 260px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .primedeals-list {
+    flex-wrap: wrap;
+    min-width: 0;
+  }
+
+  .primedeals-list .product-item {
+    flex: 0 0 calc(25% - 0.75rem);
+    width: calc(25% - 0.75rem);
+  }
+}
+
+.primedeals-failure {
+  background: var(--color-background-alt);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
 }
 
 .register-prime-img {
-  margin-top: 30px;
+  max-width: 100%;
+  border-radius: var(--radius-md);
 }
 
 .primedeals-loader-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 60vh;
+  min-height: 200px;
 }

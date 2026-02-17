@@ -2,14 +2,25 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import {Link, Redirect} from 'react-router-dom'
 
+import '../LoginForm/index.css'
 import './index.css'
 
-class LoginForm extends Component {
+class SignUpForm extends Component {
   state = {
+    username: '',
+    phone: '',
     email: '',
     password: '',
     showSubmitError: false,
     errorMsg: '',
+  }
+
+  onChangeUsername = event => {
+    this.setState({username: event.target.value})
+  }
+
+  onChangePhone = event => {
+    this.setState({phone: event.target.value})
   }
 
   onChangeEmail = event => {
@@ -35,21 +46,21 @@ class LoginForm extends Component {
 
   submitForm = async event => {
     event.preventDefault()
-    const {email, password} = this.state
+    const {username, phone, email, password} = this.state
     this.setState({showSubmitError: false})
 
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({email, password}),
+        body: JSON.stringify({username, phone, email, password}),
       })
       const data = await response.json()
 
       if (response.ok) {
         this.onSubmitSuccess(data.jwt_token)
       } else {
-        this.onSubmitFailure(data.error_msg || 'Login failed')
+        this.onSubmitFailure(data.error_msg || 'Registration failed')
       }
     } catch (err) {
       this.onSubmitFailure('Network error. Please try again.')
@@ -70,7 +81,47 @@ class LoginForm extends Component {
           className="password-input-field"
           value={password}
           onChange={this.onChangePassword}
-          placeholder="Password"
+          placeholder="Password (min 6 characters)"
+        />
+      </>
+    )
+  }
+
+  renderUsernameField = () => {
+    const {username} = this.state
+
+    return (
+      <>
+        <label className="input-label" htmlFor="username">
+          USERNAME
+        </label>
+        <input
+          type="text"
+          id="username"
+          className="email-input-field"
+          value={username}
+          onChange={this.onChangeUsername}
+          placeholder="Username (min 3 characters)"
+        />
+      </>
+    )
+  }
+
+  renderPhoneField = () => {
+    const {phone} = this.state
+
+    return (
+      <>
+        <label className="input-label" htmlFor="phone">
+          PHONE NUMBER
+        </label>
+        <input
+          type="tel"
+          id="phone"
+          className="email-input-field"
+          value={phone}
+          onChange={this.onChangePhone}
+          placeholder="Phone number"
         />
       </>
     )
@@ -114,7 +165,7 @@ class LoginForm extends Component {
         <img
           src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-login-img.png"
           className="login-img"
-          alt="website login"
+          alt="website signup"
         />
         <form className="form-container" onSubmit={this.submitForm}>
           <img
@@ -122,14 +173,17 @@ class LoginForm extends Component {
             className="login-website-logo-desktop-img"
             alt="website logo"
           />
+          <h2 className="form-title">Create Account</h2>
+          <div className="input-container">{this.renderUsernameField()}</div>
+          <div className="input-container">{this.renderPhoneField()}</div>
           <div className="input-container">{this.renderEmailField()}</div>
           <div className="input-container">{this.renderPasswordField()}</div>
           <button type="submit" className="login-button">
-            Sign In
+            Sign Up
           </button>
           {showSubmitError && <p className="error-message">*{errorMsg}</p>}
           <p className="auth-link-text">
-            Don&apos;t have an account? <Link to="/signup">Sign Up</Link>
+            Already have an account? <Link to="/login">Sign In</Link>
           </p>
         </form>
       </div>
@@ -137,4 +191,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm
+export default SignUpForm

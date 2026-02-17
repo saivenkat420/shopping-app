@@ -2,6 +2,7 @@ import {Component} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
 
 import LoginForm from './components/LoginForm'
+import SignUpForm from './components/SignUpForm'
 import Home from './components/Home'
 import Products from './components/Products'
 import ProductItemDetails from './components/ProductItemDetails'
@@ -10,14 +11,11 @@ import NotFound from './components/NotFound'
 import ProtectedRoute from './components/ProtectedRoute'
 import CartContext from './context/CartContext'
 
-import './App.css'
-
 class App extends Component {
   state = {
     cartList: [],
   }
 
-  //   TODO: Add your code for remove all cart items, increment cart item quantity, decrement cart item quantity, remove cart item
   removeAllCartItems = () => {
     this.setState({cartList: []})
   }
@@ -71,7 +69,6 @@ class App extends Component {
       return {cartList: [...prevState.cartList, {...product}]}
     })
   }
-  //   TODO: Update the code here to implement addCartItem
 
   render() {
     const {cartList} = this.state
@@ -89,6 +86,7 @@ class App extends Component {
       >
         <Switch>
           <Route exact path="/login" component={LoginForm} />
+          <Route exact path="/signup" component={SignUpForm} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute exact path="/products" component={Products} />
           <ProtectedRoute

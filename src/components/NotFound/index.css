@@ -3,9 +3,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
+  min-height: 70vh;
+  padding: 2rem;
+  text-align: center;
 }
 
 .not-found-img {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: var(--radius-lg);
 }

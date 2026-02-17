@@ -49,7 +49,7 @@ const FiltersGroup = props => {
 
       return (
         <li
-          className="category-item"
+          className={`category-item ${isActive ? 'category-item-active' : ''}`}
           key={category.categoryId}
           onClick={onClickCategoryItem}
         >

@@ -1,45 +1,24 @@
 import {Component} from 'react'
-import Loader from 'react-loader-spinner'
-import Cookies from 'js-cookie'
 
 import FiltersGroup from '../FiltersGroup'
+import {getCachedProducts, setCachedProducts} from '../../utils/productsCache'
 import ProductCard from '../ProductCard'
+import ProductCardSkeleton from '../ProductCardSkeleton'
 import ProductsHeader from '../ProductsHeader'
 
 import './index.css'
 
 const categoryOptions = [
-  {
-    name: 'Clothing',
-    categoryId: '1',
-  },
-  {
-    name: 'Electronics',
-    categoryId: '2',
-  },
-  {
-    name: 'Appliances',
-    categoryId: '3',
-  },
-  {
-    name: 'Grocery',
-    categoryId: '4',
-  },
-  {
-    name: 'Toys',
-    categoryId: '5',
-  },
+  {name: 'Clothing', categoryId: '1'},
+  {name: 'Electronics', categoryId: '2'},
+  {name: 'Appliances', categoryId: '3'},
+  {name: 'Grocery', categoryId: '4'},
+  {name: 'Toys', categoryId: '5'},
 ]
 
 const sortbyOptions = [
-  {
-    optionId: 'PRICE_HIGH',
-    displayText: 'Price (High-Low)',
-  },
-  {
-    optionId: 'PRICE_LOW',
-    displayText: 'Price (Low-High)',
-  },
+  {optionId: 'PRICE_HIGH', displayText: 'Price (High-Low)'},
+  {optionId: 'PRICE_LOW', displayText: 'Price (Low-High)'},
 ]
 
 const ratingsList = [
@@ -80,31 +59,38 @@ class AllProductsSection extends Component {
     activeCategoryId: '',
     searchInput: '',
     activeRatingId: '',
+    filtersOpen: false,
   }
 
   componentDidMount() {
-    this.getProducts()
+    this.getProducts(false)
   }
 
-  getProducts = async () => {
-    this.setState({
-      apiStatus: apiStatusConstants.inProgress,
-    })
-    const jwtToken = Cookies.get('jwt_token')
-    const {
+  getProducts = async (showLoader = true) => {
+    const {activeOptionId, activeCategoryId, searchInput, activeRatingId} =
+      this.state
+    const params = {
       activeOptionId,
       activeCategoryId,
       searchInput,
       activeRatingId,
-    } = this.state
-    const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`
-    const options = {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
-      method: 'GET',
     }
-    const response = await fetch(apiUrl, options)
+
+    const cached = getCachedProducts(params)
+    if (cached) {
+      this.setState({
+        productsList: cached,
+        apiStatus: apiStatusConstants.success,
+      })
+      if (!showLoader) return
+    }
+
+    this.setState({apiStatus: apiStatusConstants.inProgress})
+    const apiUrl = `/api/products?sort_by=${activeOptionId}&category=${activeCategoryId}&title_search=${searchInput}&rating=${activeRatingId}`
+    const response = await fetch(apiUrl, {
+      credentials: 'include',
+      method: 'GET',
+    })
     if (response.ok) {
       const fetchedData = await response.json()
       const updatedData = fetchedData.products.map(product => ({
@@ -115,55 +101,56 @@ class AllProductsSection extends Component {
         imageUrl: product.image_url,
         rating: product.rating,
       }))
+      setCachedProducts(params, updatedData)
       this.setState({
         productsList: updatedData,
         apiStatus: apiStatusConstants.success,
       })
     } else {
-      this.setState({
-        apiStatus: apiStatusConstants.failure,
-      })
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
 
   renderLoadingView = () => (
-    <div className="products-loader-container">
-      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+    <div className="all-products-main">
+      <ul className="products-grid">
+        {Array.from({length: 8}, (_, i) => (
+          <ProductCardSkeleton key={`skeleton-${i}`} />
+        ))}
+      </ul>
     </div>
   )
 
   renderFailureView = () => (
     <div className="products-error-view-container">
-      <img
-        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-        alt="all-products-error"
-        className="products-failure-img"
-      />
-      <h1 className="product-failure-heading-text">
-        Oops! Something Went Wrong
-      </h1>
-      <p className="products-failure-description">
-        We are having some trouble processing your request. Please try again.
-      </p>
+      <div className="products-error-card">
+        <img
+          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+          alt="Error"
+          className="products-failure-img"
+        />
+        <h2 className="product-failure-heading-text">
+          Oops! Something Went Wrong
+        </h2>
+        <p className="products-failure-description">
+          We are having some trouble processing your request. Please try again.
+        </p>
+      </div>
     </div>
   )
-
-  changeSortby = activeOptionId => {
-    this.setState({activeOptionId}, this.getProducts)
-  }
 
   renderProductsListView = () => {
     const {productsList, activeOptionId} = this.state
     const shouldShowProductsList = productsList.length > 0
 
     return shouldShowProductsList ? (
-      <div className="all-products-container">
+      <div className="all-products-main">
         <ProductsHeader
           activeOptionId={activeOptionId}
           sortbyOptions={sortbyOptions}
           changeSortby={this.changeSortby}
         />
-        <ul className="products-list">
+        <ul className="products-grid">
           {productsList.map(product => (
             <ProductCard productData={product} key={product.id} />
           ))}
@@ -171,22 +158,23 @@ class AllProductsSection extends Component {
       </div>
     ) : (
       <div className="no-products-view">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
-          className="no-products-img"
-          alt="no products"
-        />
-        <h1 className="no-products-heading">No Products Found</h1>
-        <p className="no-products-description">
-          We could not find any products. Try other filters.
-        </p>
+        <div className="no-products-card">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png"
+            className="no-products-img"
+            alt="No products found"
+          />
+          <h2 className="no-products-heading">No Products Found</h2>
+          <p className="no-products-description">
+            We could not find any products. Try adjusting your filters.
+          </p>
+        </div>
       </div>
     )
   }
 
   renderAllProducts = () => {
     const {apiStatus} = this.state
-
     switch (apiStatus) {
       case apiStatusConstants.success:
         return this.renderProductsListView()
@@ -199,52 +187,89 @@ class AllProductsSection extends Component {
     }
   }
 
-  clearFilters = () => {
+  changeSortby = activeOptionId =>
+    this.setState({activeOptionId}, () => this.getProducts(true))
+  clearFilters = () =>
     this.setState(
-      {
-        searchInput: '',
-        activeCategoryId: '',
-        activeRatingId: '',
-      },
-      this.getProducts,
+      {searchInput: '', activeCategoryId: '', activeRatingId: ''},
+      () => this.getProducts(true),
     )
-  }
-
-  changeRating = activeRatingId => {
-    this.setState({activeRatingId}, this.getProducts)
-  }
-
-  changeCategory = activeCategoryId => {
-    this.setState({activeCategoryId}, this.getProducts)
-  }
-
-  enterSearchInput = () => {
-    this.getProducts()
-  }
-
-  changeSearchInput = searchInput => {
-    this.setState({searchInput})
-  }
+  changeRating = activeRatingId =>
+    this.setState({activeRatingId}, () => this.getProducts(true))
+  changeCategory = activeCategoryId =>
+    this.setState({activeCategoryId}, () => this.getProducts(true))
+  enterSearchInput = () => this.getProducts(true)
+  changeSearchInput = searchInput => this.setState({searchInput})
+  toggleFilters = () =>
+    this.setState(prev => ({filtersOpen: !prev.filtersOpen}))
 
   render() {
-    const {activeCategoryId, searchInput, activeRatingId} = this.state
+    const {activeCategoryId, searchInput, activeRatingId, filtersOpen} =
+      this.state
 
     return (
-      <div className="all-products-section">
-        <FiltersGroup
-          searchInput={searchInput}
-          categoryOptions={categoryOptions}
-          ratingsList={ratingsList}
-          changeSearchInput={this.changeSearchInput}
-          enterSearchInput={this.enterSearchInput}
-          activeCategoryId={activeCategoryId}
-          activeRatingId={activeRatingId}
-          changeCategory={this.changeCategory}
-          changeRating={this.changeRating}
-          clearFilters={this.clearFilters}
-        />
-        {this.renderAllProducts()}
-      </div>
+      <section className="all-products-section">
+        {filtersOpen && (
+          <div
+            className="filters-overlay"
+            onClick={this.toggleFilters}
+            onKeyDown={e => e.key === 'Escape' && this.toggleFilters()}
+            role="button"
+            tabIndex={0}
+            aria-label="Close filters"
+          />
+        )}
+        <aside
+          className={`filters-sidebar ${filtersOpen ? 'filters-open' : ''}`}
+        >
+          <div className="filters-sidebar-header">
+            <h3 className="filters-sidebar-title">Filters</h3>
+            <button
+              type="button"
+              className="filters-close-btn"
+              onClick={this.toggleFilters}
+              aria-label="Close filters"
+            >
+              ×
+            </button>
+          </div>
+          <FiltersGroup
+            searchInput={searchInput}
+            categoryOptions={categoryOptions}
+            ratingsList={ratingsList}
+            changeSearchInput={this.changeSearchInput}
+            enterSearchInput={this.enterSearchInput}
+            activeCategoryId={activeCategoryId}
+            activeRatingId={activeRatingId}
+            changeCategory={this.changeCategory}
+            changeRating={this.changeRating}
+            clearFilters={this.clearFilters}
+          />
+        </aside>
+        <div className="all-products-content">
+          <button
+            type="button"
+            className="filters-toggle-btn"
+            onClick={this.toggleFilters}
+            aria-label="Toggle filters"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="4" y1="6" x2="20" y2="6" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="18" x2="20" y2="18" />
+            </svg>
+            Filters
+          </button>
+          {this.renderAllProducts()}
+        </div>
+      </section>
     )
   }
 }

@@ -1,0 +1,97 @@
+.product-skeleton {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border-light);
+  padding: 0;
+}
+
+.product-skeleton .skeleton-image {
+  width: 100%;
+  aspect-ratio: 1;
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.product-skeleton .skeleton-title {
+  height: 1.25rem;
+  margin: 1rem 1rem 0.25rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  width: 85%;
+}
+
+.product-skeleton .skeleton-brand {
+  height: 0.875rem;
+  margin: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+  width: 50%;
+}
+
+.product-skeleton .skeleton-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0.75rem 1rem 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border-light);
+}
+
+.product-skeleton .skeleton-price {
+  height: 1rem;
+  width: 4rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+.product-skeleton .skeleton-rating {
+  height: 1.75rem;
+  width: 3rem;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--color-background-alt) 0%,
+    var(--color-border-light) 50%,
+    var(--color-background-alt) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

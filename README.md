@@ -2,32 +2,41 @@
 
 ## Introduction
 
-The **Shopping App** is a modern e-commerce web application designed to provide a seamless shopping experience. Users can browse products, add items to their cart, and complete purchases with ease. The app also supports authentication and order tracking.
+The **Shopping App** is a modern e-commerce web application built with React. Users can browse products, add items to their cart, and manage their shopping experience. The app uses **Neon PostgreSQL** for authentication and fetches product data from CCBP APIs via a secure backend proxy.
 
 ---
 
 ## What the App Can Do
 
 - **Home Page**:
-  - Displays a list of products with images, prices, and ratings.
-  - Allows users to search for products by name.
-  - Provides category-based filtering.
+  - Displays prime deals and a full product catalog.
+  - Search by name, filter by category and rating, sort by price.
+  - Responsive filters sidebar (mobile-friendly).
 
 - **Product Details Page**:
-  - Shows more details about a product, including reviews and specifications.
-  - Lets users add products to their cart.
+  - Full product information, reviews, and specifications.
+  - Add products to cart with quantity selection.
+  - Similar products section.
+  - Back button for easy navigation.
 
 - **Shopping Cart**:
-  - Displays selected products.
-  - Allows users to update quantities or remove items.
+  - View selected products.
+  - Update quantities or remove items.
+  - Cart summary with total.
 
 - **User Authentication**:
-  - Secure login and registration system.
-  - Uses authentication tokens to keep users logged in.
+  - Sign up (username, phone, email, password).
+  - Sign in (email, password).
+  - JWT stored in cookies; protected routes for products and cart.
 
+- **Performance**:
+  - Skeleton loading for products list and product details.
+  - Server-side caching (Neon) for CCBP token and API responses.
+  - Browser cache headers for faster repeat loads.
+  - Prefetch product details on hover for instant navigation.
 
-- **Handles Errors**:
-  - Displays error messages if the API fails and allows retries.
+- **Error Handling**:
+  - Error views with retry options when the API fails.
 
 ---
 
@@ -35,129 +44,130 @@ The **Shopping App** is a modern e-commerce web application designed to provide 
 
 ```
 shopping-app/
-├── public/                # Static assets (favicon, manifest, images, etc.)
+├── api/                      # Vercel serverless API routes
+│   ├── auth/                 # Signup, login (Neon)
+│   ├── lib/                  # CCBP client, API cache helpers
+│   ├── products/             # Products list proxy
+│   ├── prime-deals/          # Prime deals proxy
+│   └── product-details.js    # Product details proxy
+├── public/                   # Static assets
 ├── src/
-│   ├── assets/            # Images, fonts, and other static resources
-│   ├── components/        # Reusable UI components
-│   │   ├── Header/        # Navigation bar
-│   │   ├── Footer/        # Footer section
-│   │   ├── ProductCard/   # Displays product preview
-│   │   ├── SearchBar/     # Search input for products
-│   │   ├── Cart/          # Shopping cart preview
-│   ├── context/           # Global state management using Context API
-│   │   ├── CartContext.js # Manages shopping cart state
-│   ├── utils/             # Utility functions and helpers
-│   ├── styles/            # Global styles, themes, and CSS modules
-│   ├── App.js             # Main app component, routing, and providers
-│   ├── index.js           # Application entry point
-├── .env                   # Environment variables
-├── .gitignore             # Files and directories to ignore in Git
-├── package.json           # Dependencies and scripts
-├── README.md              # Project documentation
+│   ├── components/
+│   │   ├── AllProductsSection/   # Products grid, filters, skeletons
+│   │   ├── ProductCard/          # Product preview (with prefetch)
+│   │   ├── ProductCardSkeleton/  # Product list loading skeleton
+│   │   ├── ProductItemDetails/   # Product detail page
+│   │   ├── ProductDetailsSkeleton/ # Product detail loading skeleton
+│   │   ├── PrimeDealsSection/    # Prime deals carousel
+│   │   ├── FiltersGroup/         # Category, rating, search filters
+│   │   ├── Header/               # Nav, cart icon
+│   │   ├── Cart/                 # Cart dropdown, CartListView
+│   │   ├── LoginForm/            # Sign in form
+│   │   ├── SignUpForm/           # Registration form
+│   │   ├── ProtectedRoute/       # Auth guard
+│   │   └── ...
+│   ├── context/
+│   │   └── CartContext.js        # Cart state (Context API)
+│   ├── utils/
+│   │   └── productsCache.js      # Frontend cache for products
+│   ├── App.js
+│   └── index.js
+├── .env                       # DATABASE_URL, JWT_SECRET
+├── vercel.json                # API rewrites
+└── package.json
 ```
 
 ---
 
 ## How to Install
 
-1. Copy the project:
+1. Clone the project:
    ```sh
    git clone https://github.com/your-username/shopping-app.git
-   ```
-
-2. Go to the project folder:
-   ```sh
    cd shopping-app
    ```
 
-3. Install everything the app needs:
+2. Install dependencies:
    ```sh
    npm install
    ```
 
+3. Set up environment variables:
+   - Create a `.env` file in the project root.
+   - Add:
+     ```
+     DATABASE_URL=postgresql://...   # Neon connection string
+     JWT_SECRET=your-secret-key     # Strong random string
+     ```
+
 4. Run the app:
-   ```sh
-   npm start
-   ```
+   - **Full-stack** (frontend + API with auth):
+     ```sh
+     npm run dev:full
+     ```
+   - **Frontend only**: `npm start` (auth API will 404; use `dev:full` for signup/login)
 
 ---
 
 ## How to Use
 
-1. **Home Page**:
-   - Browse through the available products.
-   - Use filters and search to find specific products.
-   - Click a product to view its details.
-
-2. **Product Details Page**:
-   - View full product details and reviews.
-   - Add the product to the cart.
-
-3. **Shopping Cart**:
-   - Review selected products.
-   - Adjust quantities or remove items.
-   - Proceed to checkout.
-
-4. **Authentication**:
-   - Register and log in to save preferences and track orders.
-
-5. **Order Tracking**:
-   - View order history and track shipments.
-
-6. **Theme Switcher**:
-   - Click the button to switch between light and dark mode.
-
----
-
-## Important Files and Folders
-
-### `App.js`
-- The main file that sets up the pages and routes.
-- Manages authentication and global state.
-
-### `CartContext.js`
-- Manages product listings and shopping cart data.
-
-### `Header`
-- Contains the navigation bar, search bar, and cart icon.
-
-### `HomePage`
-- Displays the list of products with filters and search.
-
-### `ProductDetails`
-- Shows full product information and an add-to-cart option.
-
-### `Cart`
-- Displays selected products and checkout options.
+1. **Sign up** at `/signup` or **sign in** at `/login`.
+2. **Browse products** on the home page; use filters and search.
+3. **Click a product** to view details; hover to prefetch for faster loading.
+4. **Add to cart** from the product details page.
+5. **View cart** via the header icon; adjust quantities or remove items.
 
 ---
 
 ## API Information
 
-The app fetches product data from:
-```
-https://api.example.com/products
-```
-- **Method**: GET
-- **What You Get**: A list of products with details like `id`, `name`, `price`, `category`, `image`, and `description`.
+### Authentication (Neon)
+- **Sign Up**: `POST /api/auth/signup` — Body: `{ username, phone, email, password }`
+- **Sign In**: `POST /api/auth/login` — Body: `{ email, password }`
+- Users stored in Neon PostgreSQL; JWT returned in cookies.
+
+### Product Data (CCBP Proxy)
+Product data is fetched from CCBP APIs via a backend proxy. Proxy credentials (raja/raja@2021) are used server-side only and are never exposed to the frontend.
+
+- **Products**: `GET /api/products?sort_by=&category=&title_search=&rating=`
+- **Product Details**: `GET /api/products/:id`
+- **Prime Deals**: `GET /api/prime-deals`
+
+All product endpoints require a valid JWT cookie (user must be signed in).
+
+### Caching
+- **CCBP token**: Stored in Neon (`ccbp_token` table) to avoid re-login on cold starts.
+- **API responses**: Cached in Neon (`api_cache` table) — 5 min for products/prime deals, 10 min for product details.
+- **Browser**: `Cache-Control` headers for 2–5 min client-side caching.
 
 ---
 
-## Tools Used
+## Vercel Deployment
 
-- **React**: For building the app.
-- **react-router-dom**: For handling navigation.
-- **react-icons**: For adding icons.
-- **styled-components**: For styling components.
-- **Redux**: For state management.
-- **Axios**: For API calls.
+1. Connect the repo to Vercel.
+2. Set environment variables:
+   - `DATABASE_URL` — Neon connection string
+   - `JWT_SECRET` — Strong random string for JWT signing
+3. Deploy; the `api/` folder is used as serverless functions.
+
+---
+
+## Tech Stack
+
+- **React 18** — UI
+- **React Router 5** — Routing
+- **Context API** — Cart state
+- **Neon PostgreSQL** — User auth, CCBP token cache, API response cache
+- **Vercel** — Hosting and serverless API
+- **CCBP APIs** — Product data (via proxy)
+- **react-icons** — Icons
+- **react-loader-spinner** — Loading (PrimeDealsSection)
 
 ---
 
-## Plans for the Future
+## Future Ideas
 
-- Add user reviews and ratings for products.
-- Improve UI for mobile devices.
-- Implement a wishlist feature.
-
----
+- User reviews and ratings
+- Wishlist
+- Order history
+- Improved mobile UI

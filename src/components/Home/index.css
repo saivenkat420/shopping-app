@@ -4,17 +4,18 @@
   justify-content: center;
   align-items: center;
   margin: auto;
-  padding-top: 10px;
-  padding-bottom: 50px;
+  padding: 2rem 0 4rem;
   width: 90%;
-  max-width: 1110px;
+  max-width: 1200px;
 }
 
 @media screen and (min-width: 768px) {
   .home-container {
     flex-direction: row;
     justify-content: space-between;
-    padding-top: 96px;
+    align-items: center;
+    padding: 5rem 0 6rem;
+    gap: 4rem;
   }
 }
 
@@ -27,11 +28,14 @@
 @media screen and (min-width: 768px) {
   .home-content {
     align-items: flex-start;
+    flex: 1;
   }
 }
 
 .home-mobile-img {
-  width: 206px;
+  width: 220px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
 }
 
 @media screen and (min-width: 768px) {
@@ -41,9 +45,10 @@
 }
 
 .home-desktop-img {
-  width: 50%;
-  max-width: 450px;
-  margin-left: 85px;
+  width: 48%;
+  max-width: 480px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
 }
 
 @media screen and (max-width: 767px) {
@@ -53,57 +58,67 @@
 }
 
 .home-heading {
-  color: #1e293b;
-  font-family: 'Roboto';
-  font-weight: bold;
-  font-size: 30px;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 2rem;
   line-height: 1.2;
   text-align: center;
+  letter-spacing: -0.02em;
 }
 
 @media screen and (min-width: 768px) {
   .home-heading {
-    font-size: 46px;
+    font-size: 3rem;
     text-align: left;
   }
 }
 
 .home-description {
-  font-family: 'Roboto';
-  margin-top: 36px;
-  font-size: 14px;
-  line-height: 28px;
-  color: #64748b;
-  margin-bottom: 0px;
+  font-family: var(--font-sans);
+  margin-top: 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--color-text-muted);
+  margin-bottom: 0;
   text-align: center;
 }
 
 @media screen and (min-width: 768px) {
   .home-description {
-    font-size: 18px;
-    margin-top: 0px;
+    font-size: 1.0625rem;
+    margin-top: 1.25rem;
     text-align: left;
+    max-width: 480px;
   }
 }
 
 .shop-now-button {
-  font-size: 14px;
-  font-weight: 400;
-  font-family: 'Roboto';
-  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: white;
   border: none;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border-radius: 6px;
-  background-color: #0967d2;
-  margin-top: 20px;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-md);
+  background: var(--color-primary);
+  margin-top: 1.5rem;
   cursor: pointer;
   outline: none;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.shop-now-button:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
 }
 
 @media screen and (min-width: 768px) {
   .shop-now-button {
-    width: 150px;
-    font-size: 16px;
+    width: auto;
+    font-size: 1rem;
+    padding: 0.875rem 2.25rem;
   }
 }

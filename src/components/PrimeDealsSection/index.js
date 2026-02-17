@@ -1,5 +1,4 @@
 import {Component} from 'react'
-import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
 import ProductCard from '../ProductCard'
@@ -28,16 +27,11 @@ class PrimeDealsSection extends Component {
       apiStatus: apiStatusConstants.inProgress,
     })
 
-    const jwtToken = Cookies.get('jwt_token')
-
-    const apiUrl = 'https://apis.ccbp.in/prime-deals'
-    const options = {
-      headers: {
-        Authorization: `Bearer ${jwtToken}`,
-      },
+    const apiUrl = '/api/prime-deals'
+    const response = await fetch(apiUrl, {
+      credentials: 'include',
       method: 'GET',
-    }
-    const response = await fetch(apiUrl, options)
+    })
     if (response.ok === true) {
       const fetchedData = await response.json()
       const updatedData = fetchedData.prime_deals.map(product => ({
@@ -63,28 +57,36 @@ class PrimeDealsSection extends Component {
   renderPrimeDealsListView = () => {
     const {primeDeals} = this.state
     return (
-      <div>
-        <h1 className="primedeals-list-heading">Exclusive Prime Deals</h1>
-        <ul className="products-list">
-          {primeDeals.map(product => (
-            <ProductCard productData={product} key={product.id} />
-          ))}
-        </ul>
-      </div>
+      <section className="primedeals-section">
+        <div className="primedeals-header">
+          <span className="primedeals-badge">Exclusive</span>
+          <h2 className="primedeals-heading">Prime Deals</h2>
+          <p className="primedeals-desc">Limited-time offers on top products</p>
+        </div>
+        <div className="primedeals-scroll">
+          <ul className="primedeals-list">
+            {primeDeals.map(product => (
+              <ProductCard productData={product} key={product.id} />
+            ))}
+          </ul>
+        </div>
+      </section>
     )
   }
 
   renderPrimeDealsFailureView = () => (
-    <img
-      src="https://assets.ccbp.in/frontend/react-js/exclusive-deals-banner-img.png"
-      alt="register prime"
-      className="register-prime-img"
-    />
+    <section className="primedeals-section primedeals-failure">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/exclusive-deals-banner-img.png"
+        alt="Register for Prime to get exclusive deals"
+        className="register-prime-img"
+      />
+    </section>
   )
 
   renderLoadingView = () => (
     <div className="primedeals-loader-container">
-      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
+      <Loader type="ThreeDots" color="#6366f1" height="50" width="50" />
     </div>
   )
 
